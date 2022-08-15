@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/slok/go-http-metrics/middleware"
 )
 
@@ -46,7 +47,14 @@ func (s *stdReporter) Method() string { return s.r.Method }
 
 func (s *stdReporter) Context() context.Context { return s.r.Context() }
 
-func (s *stdReporter) URLPath() string { return s.r.URL.Path }
+func (s *stdReporter) URLPath() string {
+	path, err := mux.CurrentRoute(s.r).GetPathTemplate()
+	if err != nil {
+		return "unknown"
+	}
+
+	return path
+}
 
 func (s *stdReporter) StatusCode() int { return s.w.statusCode }
 
