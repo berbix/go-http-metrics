@@ -1,4 +1,4 @@
-module github.com/slok/go-http-metrics
+module github.com/berbix/go-http-metrics
 
 require (
 	contrib.go.opencensus.io/exporter/prometheus v0.4.0
